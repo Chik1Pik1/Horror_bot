@@ -1,0 +1,61 @@
+body {
+  background: #000;
+  font-family: 'VT323', monospace;
+  overflow: hidden;
+  margin: 0;
+}
+
+.crt {
+  position: relative;
+  min-height: 100vh;
+  background: radial-gradient(rgba(0, 255, 0, 0.1), black 70%);
+  animation: flicker 0.1s infinite;
+}
+
+.crt::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    transparent 0%,
+    transparent 2px,
+    rgba(0, 255, 0, 0.05) 2px,
+    rgba(0, 255, 0, 0.05) 4px
+  );
+  pointer-events: none;
+  animation: scanline 4s linear infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 1; }
+  50% { opacity: 0.98; }
+  100% { opacity: 1; }
+}
+
+@keyframes scanline {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 1000px; }
+}
+
+.text-user {
+  color: #00FF00;
+}
+
+.text-demon {
+  color: #FF0000;
+}
+
+.blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+input, button {
+  font-family: 'VT323', monospace;
+}
