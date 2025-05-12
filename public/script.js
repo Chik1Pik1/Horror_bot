@@ -4,7 +4,7 @@ const App = () => {
   const [isAccessGranted, setIsAccessGranted] = useState(false);
 
   return (
-    <div className="crt">
+    <div className="crt-window">
       {isAccessGranted ? (
         <ChatScreen />
       ) : (
@@ -33,31 +33,29 @@ const AccessScreen = ({ onAccessGranted }) => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="text-center p-8">
-        <h1 className="text-4xl text-demon mb-4">ПРОЕКТ ЗЕРКАЛО-1</h1>
-        <p className="text-2xl text-demon mb-4">ГРИФ: СОВЕРШЕННО СЕКРЕТНО</p>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={key}
-            onChange={(e) => setKey(e.target.value)}
-            className="bg-black text-user text-2xl p-2 border border-green-500 focus:outline-none"
-            placeholder="Введите ключ доступа"
-            disabled={isLoading}
-          />
-          <button
-            type="submit"
-            className="mt-4 bg-black text-user text-2xl border border-green-500 px-4 py-2"
-            disabled={isLoading}
-          >
-            Подтвердить
-          </button>
-        </form>
-        {error && (
-          <p className="text-demon text-2xl mt-4 blink">{error}</p>
-        )}
-      </div>
+    <div className="flex flex-col items-center justify-center h-full text-center">
+      <h1 className="text-3xl text-demon mb-4">ПРОЕКТ ЗЕРКАЛО-1</h1>
+      <p className="text-xl text-demon mb-4">ГРИФ: СОВЕРШЕННО СЕКРЕТНО</p>
+      <form onSubmit={handleSubmit} className="w-full max-w-sm">
+        <input
+          type="text"
+          value={key}
+          onChange={(e) => setKey(e.target.value)}
+          className="w-full text-user text-xl p-2 mb-4 border focus:outline-none"
+          placeholder="Введите ключ доступа"
+          disabled={isLoading}
+        />
+        <button
+          type="submit"
+          className="w-full text-user text-xl border px-4 py-2"
+          disabled={isLoading}
+        >
+          Подтвердить
+        </button>
+      </form>
+      {error && (
+        <p className="text-demon text-xl mt-4 blink">{error}</p>
+      )}
     </div>
   );
 };
@@ -98,37 +96,35 @@ const ChatScreen = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
-      <div className="w-full max-w-2xl">
-        <div className="h-96 overflow-y-auto mb-4">
-          {messages.map((msg, index) => (
-            <p
-              key={index}
-              className={`text-2xl mb-2 ${msg.sender === 'user' ? 'text-user' : 'text-demon'}`}
-            >
-              {msg.sender === 'user' ? '>> ' : '[Сущность #3]: '}{msg.text}
-            </p>
-          ))}
-          {isTyping && (
-            <p className="text-demon text-2xl blink">[Сущность #3]: ...печатает...</p>
-          )}
-        </div>
-        <form onSubmit={handleSubmit} className="flex">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="flex-1 bg-black text-user text-2xl p-2 border border-green-500 focus:outline-none"
-            placeholder="Введи сообщение..."
-          />
-          <button
-            type="submit"
-            className="bg-black text-user text-2xl border border-green-500 px-4 py-2"
+    <div className="flex flex-col h-full p-4">
+      <div className="chat-container">
+        {messages.map((msg, index) => (
+          <p
+            key={index}
+            className={`text-xl mb-2 ${msg.sender === 'user' ? 'text-user' : 'text-demon'}`}
           >
-            Отправить
-          </button>
-        </form>
+            {msg.sender === 'user' ? '>> ' : '[Сущность #3]: '}{msg.text}
+          </p>
+        ))}
+        {isTyping && (
+          <p className="text-demon text-xl blink">[Сущность #3]: ...печатает...</p>
+        )}
       </div>
+      <form onSubmit={handleSubmit} className="flex mt-auto w-full">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          className="flex-1 text-user text-xl p-2 border focus:outline-none"
+          placeholder="Введи сообщение..."
+        />
+        <button
+          type="submit"
+          className="text-user text-xl border px-4 py-2"
+        >
+          Отправить
+        </button>
+      </form>
     </div>
   );
 };
